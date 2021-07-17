@@ -7,10 +7,10 @@ use Keenops\LaravelSms\LaravelSms;
 
 class SmsController extends Controller
 {
-    public function index(){
-        $message = "Test a service if it is working";
+    public function send_approval($to){
+        $message = "Your Request for Loan has been Approved";
         
-        $to = ['0714377516']; 
+        $to = [$to]; 
         
         return LaravelSms::send($message, $to);
     }

@@ -83,7 +83,6 @@ class LoanController extends Controller
     }
 
     
-
     /**
 
      * Store a newly created resource in storage.
@@ -198,12 +197,9 @@ class LoanController extends Controller
     
         $loan->update($request->all());
 
-        $to = $loan->phone;
-
-        $this->beem->send_approval($to);
+        $this->beem->send_approval($loan->phone);
 
         return redirect()->route('loans.index')->with('success','Loan updated successfully');
-
     }
 
     

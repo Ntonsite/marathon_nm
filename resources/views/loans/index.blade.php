@@ -12,16 +12,6 @@
             <h2>Loans Management</h2>
 
         </div>
-
-        <div class="pull-right">
-
-        @can('loan-create')
-
-            <a class="btn btn-success" href="{{ route('loans.create') }}">New Loan Request</a>
-
-            @endcan
-
-        </div>
     </div>
 
 </div>
@@ -32,7 +22,9 @@
     <div class="alert alert-success">
 
         <p>{{ $message }}</p>
-
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
     </div>
 
 @endif
@@ -72,21 +64,10 @@
 
         <td>
 
-            <a class="btn btn-info" href="{{ route('loans.show',$loan->id) }}">Show</a>
 
             @can('loan-edit')
 
-                <a class="btn btn-primary" href="{{ route('loans.edit',$loan->id) }}">Edit</a>
-
-            @endcan
-
-            @can('loan-delete')
-
-                {!! Form::open(['method' => 'DELETE','route' => ['loans.destroy', $loan->id],'style'=>'display:inline']) !!}
-
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-
-                {!! Form::close() !!}
+                <a class="btn btn-primary" href="{{ route('loans.edit',$loan->id) }}">Update</a>
 
             @endcan
 

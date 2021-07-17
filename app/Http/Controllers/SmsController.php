@@ -8,9 +8,9 @@ use Keenops\LaravelSms\LaravelSms;
 class SmsController extends Controller
 {
     public function index(){
-        $message = "A Beem Challenge is working fine now LOML, yours Tesoro";
+        $message = "Test a service if it is working";
         
-        $to = ['+255674391905','0768505988']; 
+        $to = ['0714377516']; 
         
         return LaravelSms::send($message, $to);
     }

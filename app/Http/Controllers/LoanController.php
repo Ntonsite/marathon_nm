@@ -9,13 +9,13 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\SmsController;
 
     
 
 class LoanController extends Controller
 
-{ 
-
+{
     /**
 
      * Display a listing of the resource.
@@ -29,14 +29,14 @@ class LoanController extends Controller
     function __construct()
 
     {
+        $this->beem = new SmsController;
+        $this->middleware('permission:loan-list|loan-create|loan-edit|loan-delete', ['only' => ['index','show']]);
 
-         $this->middleware('permission:loan-list|loan-create|loan-edit|loan-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:loan-create', ['only' => ['create','store']]);
 
-         $this->middleware('permission:loan-create', ['only' => ['create','store']]);
+        $this->middleware('permission:loan-edit', ['only' => ['edit','update']]);
 
-         $this->middleware('permission:loan-edit', ['only' => ['edit','update']]);
-
-         $this->middleware('permission:loan-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:loan-delete', ['only' => ['destroy']]);
 
     }
 
@@ -104,7 +104,12 @@ class LoanController extends Controller
 
             'name' => 'required',
 
-            'detail' => 'required',
+            'location' => 'required',
+            'phone' => 'required',
+            'amount' => 'required',
+            'maturity' => 'required',
+            'status' => 'required',
+            'reason' => 'required',
 
         ]);
 
@@ -186,21 +191,18 @@ class LoanController extends Controller
 
          request()->validate([
 
-            'name' => 'required',
-
-            'detail' => 'required',
+            'status' => 'required',
 
         ]);
 
     
-
         $loan->update($request->all());
 
-    
+        $to = $loan->phone;
 
-        return redirect()->route('loans.index')
+        $this->beem->send_approval($to);
 
-                        ->with('success','Loan updated successfully');
+        return redirect()->route('loans.index')->with('success','Loan updated successfully');
 
     }
 

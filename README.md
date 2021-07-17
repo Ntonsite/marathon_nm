@@ -23,6 +23,7 @@ Steps:
 8. Run php artisan serve, it should run on localhost at port 8000
 9. Visit a browser on localhost at that particular port
   i.e http://localhost:8000
+10. With Provided credentials you can login and navigate to Manage Loans & Update
 
 ## Access
 Login using the following Credentials:

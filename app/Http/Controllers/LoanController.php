@@ -197,7 +197,7 @@ class LoanController extends Controller
     
         $loan->update($request->all());
 
-        $this->beem->send_approval($loan->phone, $loan->name);
+        $this->beem->send_approval($loan->phone, $loan->name, $loan->status);
 
         return redirect()->route('loans.index')->with('success','Loan updated successfully');
     }
